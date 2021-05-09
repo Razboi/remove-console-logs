@@ -3,6 +3,7 @@
 import * as fs from 'fs';
 import * as yargs from 'yargs';
 import { hideBin } from 'yargs/helpers';
+import * as ora from 'ora';
 
 
 const argv = yargs(hideBin(process.argv))
@@ -12,12 +13,19 @@ const argv = yargs(hideBin(process.argv))
   .demand(1)
   .argv;
 
+const spinner = ora('Deleting console.log statements').start();
 const path = argv._.toString();
 
 fs.readFile(path, 'utf8', (err, data) => {
-  if (err) throw err;
+  if (err) {
+    spinner.stop();
+    throw err;
+  }
   const sanitizedData = data.replace(/console\.log\(([^)]*)\);/g, '');
   fs.writeFile(path, sanitizedData, err => {
-    if (err) throw err;
+    spinner.stop();
+    if (err) {
+      throw err;
+    }
   })
 });

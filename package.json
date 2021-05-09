@@ -1,6 +1,6 @@
 {
   "name": "remove-console-logs",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "Remove all console.logs in your project",
   "main": "index.js",
   "scripts": {

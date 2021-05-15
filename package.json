@@ -7,7 +7,8 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "tsc",
     "lint": "eslint . --ext .ts",
-    "dev": "ts-node src/index.ts"
+    "execute": "ts-node src/index.ts",
+    "debug": "nodemon -w src -e ts -x 'node --inspect-brk -r ts-node/register src/index.ts'"
   },
   "author": "",
   "license": "ISC",
@@ -17,6 +18,7 @@
     "@typescript-eslint/eslint-plugin": "^4.22.1",
     "@typescript-eslint/parser": "^4.22.1",
     "eslint": "^7.25.0",
+    "nodemon": "^2.0.7",
     "ts-node": "^9.1.1",
     "typescript": "^4.2.4"
   },

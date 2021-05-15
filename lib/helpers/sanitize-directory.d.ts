@@ -1,2 +1,2 @@
-declare const _default: (directoryPath: string) => Promise<void>;
-export default _default;
+import Arguments from '../interfaces/arguments';
+export default function sanitizeDirectory(directoryPath: string, argv: Arguments): Promise<void>;

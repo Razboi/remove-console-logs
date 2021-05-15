@@ -4,28 +4,25 @@ import * as fs from 'fs';
 import * as yargs from 'yargs';
 import { hideBin } from 'yargs/helpers';
 import * as ora from 'ora';
-
+import sanitizeDirectory from './helpers/sanitize-directory';
+import sanitizeFile from './helpers/sanitize-file';
 
 const argv = yargs(hideBin(process.argv))
-  .options({
-    'recursive': { type: 'boolean', demandOption: false, alias: 'r', describe: 'replace files in subdirectories recursively' }
-  })
+  .options({ 'recursive': { type: 'boolean', demandOption: false, alias: 'r', describe: 'replace files in subdirectories recursively' } })
   .demand(1)
   .argv;
 
-const spinner = ora('Deleting console.log statements').start();
 const path = argv._.toString();
+const fileExists = fs.existsSync(path);
 
-fs.readFile(path, 'utf8', (err, data) => {
-  if (err) {
-    spinner.stop();
-    throw err;
-  }
-  const sanitizedData = data.replace(/console\.log\(([^)]*)\);/g, '');
-  fs.writeFile(path, sanitizedData, err => {
-    spinner.stop();
-    if (err) {
-      throw err;
-    }
-  })
-});
+if (!fileExists) {
+  console.error(`Error: no such file or directory '${path}'`);
+  process.exit();
+}
+const spinner = ora('Deleting console.log statements\n\n').start();
+const isDirectory = fs.lstatSync(path).isDirectory();
+const handler = isDirectory ? sanitizeDirectory : sanitizeFile;
+
+handler(path)
+  .then(() => spinner.succeed('Successfully deleted all console.log statements'))
+  .catch(err => spinner.fail(`An error occurred while deleting console.log statements: \n ${err}`));

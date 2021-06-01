@@ -4,7 +4,7 @@
   "description": "Remove all console.logs in your project",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "jest ./tests/unit",
     "build": "tsc",
     "lint": "eslint . --ext .ts",
     "execute": "ts-node src/index.ts",
@@ -13,12 +13,15 @@
   "author": "",
   "license": "GPL-3.0",
   "devDependencies": {
+    "@types/jest": "^26.0.23",
     "@types/node": "^15.0.2",
     "@types/yargs": "^16.0.1",
     "@typescript-eslint/eslint-plugin": "^4.22.1",
     "@typescript-eslint/parser": "^4.22.1",
     "eslint": "^7.25.0",
+    "jest": "^27.0.3",
     "nodemon": "^2.0.7",
+    "ts-jest": "^27.0.2",
     "ts-node": "^9.1.1",
     "typescript": "^4.2.4"
   },

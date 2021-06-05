@@ -4,11 +4,11 @@
   "description": "Remove all console.logs in your project",
   "main": "index.js",
   "scripts": {
-    "test": "jest ./tests/unit",
+    "test": "jest ./tests",
     "build": "tsc",
     "lint": "eslint . --ext .ts",
-    "execute": "ts-node src/index.ts",
-    "debug": "nodemon -w src -e ts -x 'node --inspect-brk -r ts-node/register src/index.ts'"
+    "execute": "ts-node index.ts",
+    "debug": "nodemon -w src -e ts -x 'node --inspect-brk -r ts-node/register index.ts'"
   },
   "author": "",
   "license": "GPL-3.0",

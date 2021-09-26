@@ -2,6 +2,7 @@ import listDirectoryFiles from './list-directory-files';
 import sanitizeFile from './sanitize-file';
 import * as fs from 'fs';
 import Arguments from '../interfaces/arguments';
+import * as path from 'path';
 
 export default function sanitizeDirectory(directoryPath: string, argv: Arguments): Promise<void> {
 	return new Promise((resolve, reject) => {
@@ -10,7 +11,7 @@ export default function sanitizeDirectory(directoryPath: string, argv: Arguments
 			const promises: Promise<void>[] = [];
 			for (const fileName of files) {
 
-				const filePath = `${directoryPath}/${fileName}`;
+				const filePath = `${directoryPath}${path.sep}${fileName}`;
 				const isDirectory = fs.lstatSync(filePath).isDirectory();
 
 				if (isDirectory && argv.recursive) {
